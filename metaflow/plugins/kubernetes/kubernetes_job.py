@@ -15,9 +15,7 @@ from .kubernetes_jobsets import (
     KubernetesJobSet,
 )  # We need this import for Kubernetes Client.
 
-from .constants import (
-    VOLUME_CLAIM_TEMPLATE_DEFAULTS
-)
+from .constants import VOLUME_CLAIM_TEMPLATE_DEFAULTS
 
 
 class KubernetesJobException(MetaflowException):
@@ -212,8 +210,7 @@ class KubernetesJob(object):
                                         "ephemeral_volume_claims"
                                     ].items()
                                 ]
-                                if self._kwargs["ephemeral_volume_claims"]
-                                is not None
+                                if self._kwargs["ephemeral_volume_claims"] is not None
                                 else []
                             ),
                         )
@@ -282,18 +279,20 @@ class KubernetesJob(object):
                             client.V1Volume(
                                 name=name,
                                 ephemeral=client.V1EphemeralVolumeSource(
-                                        volume_claim_template=client.V1PersistentVolumeClaimTemplate(
-                                                metadata=vals.get("metadata", {}),
-                                                spec={**vals.get("spec", {}), **VOLUME_CLAIM_TEMPLATE_DEFAULTS},
-                                        )
+                                    volume_claim_template=client.V1PersistentVolumeClaimTemplate(
+                                        metadata=vals.get("metadata", {}),
+                                        spec={
+                                            **vals.get("spec", {}),
+                                            **VOLUME_CLAIM_TEMPLATE_DEFAULTS,
+                                        },
+                                    )
                                 ),
                             )
                             for name, vals in self._kwargs[
                                 "ephemeral_volume_claims"
                             ].items()
                         ]
-                        if self._kwargs["ephemeral_volume_claims"]
-                        is not None
+                        if self._kwargs["ephemeral_volume_claims"] is not None
                         else []
                     ),
                 ),
