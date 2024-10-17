@@ -16,7 +16,7 @@ from .kubernetes_jobsets import (
 )  # We need this import for Kubernetes Client.
 
 from .constants import (
-    _VOLUME_CLAIM_TEMPLATE_DEFAULTS
+    VOLUME_CLAIM_TEMPLATE_DEFAULTS
 )
 
 
@@ -284,7 +284,7 @@ class KubernetesJob(object):
                                 ephemeral=client.V1EphemeralVolumeSource(
                                         volume_claim_template=client.V1PersistentVolumeClaimTemplate(
                                                 metadata=vals.get("metadata", {}),
-                                                spec={**vals.get("spec", {}), **_VOLUME_CLAIM_TEMPLATE_DEFAULTS},
+                                                spec={**vals.get("spec", {}), **VOLUME_CLAIM_TEMPLATE_DEFAULTS},
                                         )
                                 ),
                             )
